@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+<meta charset="UTF-8">
+<title>City Look</title>
+
+<style>
+/* RESET */
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  height:100vh;
+  font-family: "Segoe UI", sans-serif;
+  background: radial-gradient(circle at top, #2b2b2b, #000);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  overflow:hidden;
+  color:white;
+}
+
+/* NEON CITY LIGHTS */
+.light {
+  position:absolute;
+  width:500px;
+  height:500px;
+  border-radius:50%;
+  filter:blur(140px);
+  opacity:.6;
+  animation: move 12s infinite alternate;
+}
+.light.one { background:#ff9f1c; top:-150px; left:-150px; }
+.light.two { background:#ff7a18; bottom:-200px; right:-200px; animation-delay:3s; }
+
+@keyframes move {
+  from { transform:translate(0,0); }
+  to { transform:translate(80px,-60px); }
+}
+
+/* HERO CARD */
+.hero {
+  position:relative;
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(22px);
+  padding:70px 90px;
+  border-radius:45px;
+  text-align:center;
+  box-shadow:
+    0 40px 80px rgba(0,0,0,.7),
+    inset 0 0 60px rgba(255,180,80,.15);
+  border:1px solid rgba(255,180,80,.25);
+  animation: fadeUp 1.4s ease;
+}
+
+/* LOGO */
+.hero img {
+  width:320px;
+  padding:20px;
+  background:#fff;
+  border-radius:30px;
+  box-shadow:
+    0 0 30px rgba(255,180,80,.9),
+    0 30px 60px rgba(0,0,0,.7);
+  animation: float 3s ease-in-out infinite, neon 2.5s infinite alternate;
+}
+
+/* TEXT */
+h1 {
+  margin-top:25px;
+  font-size:44px;
+  background: linear-gradient(135deg,#ffb347,#ff7a18,#ffd36a);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  text-shadow:0 0 25px rgba(255,160,50,.9);
+}
+
+p {
+  margin:25px 0 40px;
+  font-size:19px;
+  color:#f5e6c8;
+  letter-spacing:.5px;
+}
+
+/* BUTTON */
+button {
+  position:relative;
+  overflow:hidden;
+  padding:18px 55px;
+  font-size:18px;
+  border:none;
+  border-radius:40px;
+  background: linear-gradient(135deg,#ff7a18,#ffb347);
+  color:white;
+  cursor:pointer;
+  box-shadow:
+    0 15px 35px rgba(0,0,0,.6),
+    0 0 25px rgba(255,160,50,.7);
+  transition:.4s;
+}
+
+button::before {
+  content:"";
+  position:absolute;
+  top:0;
+  left:-120%;
+  width:100%;
+  height:100%;
+  background:linear-gradient(
+    120deg,
+    transparent,
+    rgba(255,255,255,.8),
+    transparent
+  );
+}
+
+button:hover::before {
+  left:120%;
+  transition:.6s;
+}
+
+button:hover {
+  transform:scale(1.15);
+  box-shadow:
+    0 25px 55px rgba(0,0,0,.9),
+    0 0 45px rgba(255,180,80,1);
+}
+
+/* ANIMATIONS */
+@keyframes fadeUp {
+  from { opacity:0; transform:translateY(60px); }
+  to { opacity:1; transform:translateY(0); }
+}
+
+@keyframes float {
+  0% { transform:translateY(0); }
+  50% { transform:translateY(-14px); }
+  100% { transform:translateY(0); }
+}
+
+@keyframes neon {
+  from { box-shadow:0 0 25px rgba(255,160,50,.7); }
+  to { box-shadow:0 0 45px rgba(255,200,100,1); }
+}
+</style>
+</head>
+
+<body>
+
+<div class="light one"></div>
+<div class="light two"></div>
+
+<div class="hero" id="card">
+  <img src="3 logotip.jpg" alt="City Look">
+  <h1>City Look дүкеніне қош келдіңіз!</h1>
+  <p>Street стиль • Luxury сапа • Қолжетімді баға</p>
+  <button onclick="location.href='2 tovar.html'">Келесі →</button>
+</div>
+
+<script>
+/* PARALLAX EFFECT */
+const card = document.getElementById("card");
+
+document.addEventListener("mousemove", e => {
+  let x = (window.innerWidth / 2 - e.clientX) / 25;
+  let y = (window.innerHeight / 2 - e.clientY) / 25;
+  card.style.transform = `rotateY(${x}deg) rotateX(${y}deg)`;
+});
+</script>
+
+</body>
+</html>
+

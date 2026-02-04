@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+    <meta charset="UTF-8">
+    <title>Ерлер киімдері</title>
+    <style>
+        body {
+    margin: 0;
+    font-family: "Segoe UI", Arial, sans-serif;
+    background: radial-gradient(circle at top, #2b2b2b, #000);
+    color: #fff;
+    overflow-x: hidden;
+}
+
+/* BACKGROUND NEON LIGHTS */
+body::before,
+body::after {
+    content: "";
+    position: fixed;
+    width: 500px;
+    height: 500px;
+    border-radius: 50%;
+    filter: blur(140px);
+    opacity: 0.45;
+    z-index: -1;
+    animation: bgMove 12s infinite alternate;
+}
+body::before {
+    background: #ff9f1c;
+    top: -150px;
+    left: -150px;
+}
+body::after {
+    background: #ff7a18;
+    bottom: -200px;
+    right: -200px;
+}
+
+@keyframes bgMove {
+    from { transform: translate(0,0); }
+    to { transform: translate(80px,-60px); }
+}
+
+/* HEADER */
+header {
+    background: linear-gradient(135deg, #ff7a18, #ffb347);
+    padding: 60px;
+    text-align: center;
+    box-shadow: 0 20px 40px rgba(0,0,0,.5);
+}
+
+header h1 {
+    font-size: 52px;
+    letter-spacing: 3px;
+    text-shadow: 0 0 25px rgba(255,180,80,1);
+}
+
+/* NAV */
+nav {
+    background: rgba(0,0,0,0.6);
+    backdrop-filter: blur(12px);
+    padding: 14px;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+nav a {
+    color: #ffd36a;
+    margin: 0 18px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+nav a:hover {
+    color: white;
+    text-shadow: 0 0 12px #ffb347;
+}
+
+/* CONTAINER */
+.container {
+    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(18px);
+    max-width: 1300px;
+    width: 90%;
+    margin: 60px auto;
+    padding: 35px;
+    border-radius: 22px;
+    box-shadow:
+        0 30px 70px rgba(0,0,0,.6),
+        inset 0 0 40px rgba(255,180,80,.15);
+    border: 1px solid rgba(255,180,80,.25);
+}
+
+/* TITLES */
+.container h2 {
+    text-align: center;
+    font-size: 36px;
+    margin-bottom: 35px;
+    background: linear-gradient(135deg,#ffb347,#ff7a18);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 0 20px rgba(255,160,50,.8);
+}
+
+/* CARDS GRID */
+.car-container {
+    display: flex;
+    gap: 25px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+/* PRODUCT CARD */
+.car-card {
+    width: 310px;
+    background: rgba(255,255,255,0.9);
+    border-radius: 18px;
+    text-align: center;
+    position: relative;
+    transition: 0.4s;
+    box-shadow:
+        0 20px 45px rgba(0,0,0,.4),
+        0 0 25px rgba(255,160,50,.4);
+}
+
+.car-card:hover {
+    transform: translateY(-10px) scale(1.04);
+    box-shadow:
+        0 30px 70px rgba(0,0,0,.7),
+        0 0 40px rgba(255,180,80,1);
+}
+
+/* IMAGE */
+.car-card img {
+    width: 95%;
+    height: 225px;
+    object-fit: cover;
+    border-radius: 16px;
+    margin-top: 8px;
+}
+
+/* TEXT */
+.car-card h3 {
+    margin: 12px 0;
+    color: #0d47a1;
+}
+
+.car-card p {
+    color: #333;
+    font-size: 14px;
+}
+
+.price {
+    font-size: 18px;
+    font-weight: bold;
+    color: #ff7a18;
+    margin: 10px 0;
+}
+
+/* OVERLAY BUY */
+.car-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,.75);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: .4s;
+    border-radius: 18px;
+}
+
+.car-card:hover .car-overlay {
+    opacity: 1;
+}
+
+.car-overlay a {
+    padding: 14px 36px;
+    border-radius: 30px;
+    background: linear-gradient(135deg,#ff7a18,#ffb347);
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    box-shadow: 0 0 25px rgba(255,180,80,1);
+}
+
+/* FOOTER */
+footer {
+    background: #000;
+    color: #ffd36a;
+    text-align: center;
+    padding: 20px;
+    margin-top: 40px;
+}
+
+.shop-controls {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+
+.shop-controls input,
+.shop-controls select {
+  padding: 12px 18px;
+  border-radius: 25px;
+  border: none;
+  outline: none;
+  font-size: 14px;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.85);
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: white;
+  color: black;
+  padding: 25px;
+  border-radius: 20px;
+  max-width: 400px;
+  text-align: center;
+}
+
+.modal-content img {
+  width: 100%;
+  border-radius: 15px;
+}
+
+.modal-content a {
+  display: inline-block;
+  margin-top: 15px;
+  padding: 12px 25px;
+  background: #ff7a18;
+  color: white;
+  border-radius: 30px;
+  text-decoration: none;
+}
+
+.close {
+  float: right;
+  font-size: 26px;
+  cursor: pointer;
+}
+@media (max-width: 768px) {
+  header h1 { font-size: 36px; }
+  nav a { margin: 0 8px; font-size: 14px; }
+  .car-card { width: 100%; }
+  .shop-controls { flex-direction: column; }
+}
+#cartBtn {
+  cursor: pointer;
+  color: #ffd36a;
+  font-weight: bold;
+}
+
+.payment img {
+  width: 200px;
+  border-radius: 15px;
+}
+
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>CITY LOOK</h1>
+    <p></p>
+</header>
+
+<nav>
+<span id="cartBtn">🛒 <span id="cartCount">0</span></span>
+
+    <a href="#home">Басты бет</a>
+    <a href="#jeide">Jeide</a>
+    <a href="#Salbar">Salbar</a>
+    <a href="#Zip-Hoodie">Zip-Hoodie</a>
+    <a href="#Байланыс">Байланыс</a>
+ 
+    <section id="home"></section>
+
+    <section id="jeide"></section>
+
+    <section id="Salbar"></section>
+    
+    <section id="Zip-Hoodie"></section>
+
+    <section id="Байланыс"></section>
+
+</nav>
+<div class="shop-controls">
+  <input type="text" id="searchInput" placeholder="🔍 Іздеу...">
+
+  <select id="sizeFilter">
+    <option value="">Барлық өлшем</option>
+    <option value="S">S</option>
+    <option value="M">M</option>
+    <option value="L">L</option>
+    <option value="XL">XL</option>
+    <option value="2XL">2XL</option>
+  </select>
+</div>
+
+
+
+<div class="container card">
+    <h2>Zip-Hoodie</h2>
+
+    <div class="car-container">
+        
+
+        <!-- Qazaqsha soiley modada -->
+        <div class="car-card" data-name="Qazaqsha soiley modada" data-size="S,M,L,XL,2XL">
+            <img src="https://resources.cdn-kaspi.kz/img/m/p/p02/p46/21609221.png?format=gallery-large">
+            <h3>Qazaqsha soiley modada</h3>
+            <p>Түстер; Барлық түстерінен бар.</p>
+            <p>Өлшемдер; S,M,L,XL,2XL.</p>
+            <div class="price">Бағасы: 17 990 ₸</div>
+            <div class="car-overlay">
+                <a href="https://wa.me/7718286470?text=Седан көлігінің бағасы туралы ақпарат керек">Сатып алу</a>
+            </div>
+        </div>
+
+        <!-- Men qazaqpyn -->
+        <div class="car-card">
+            <img src="https://resources.cdn-kaspi.kz/img/m/p/pa6/pbc/20414908.png?format=gallery-large">
+            <h3>Demalys</h3>
+            <p>Түстер; Барлық түстерінен бар.</p>
+            <p>Өлшемдер; S,M,L,XL,2XL.</p>
+            <div class="price">Бағасы: 17 990 ₸</div>
+            <div class="car-overlay">
+                <a href="https://wa.me/7718286470?text=Седан көлігінің бағасы туралы ақпарат керек">Сатып алу</a>
+            </div>
+        </div>
+
+        <!-- Oiy -->
+        <div class="car-card">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTydcV7S0rNwvbYFPxaCyWiECfbMufF7bhoTA&s">
+            <h3>QSM</h3>
+            <p>Түстер; Барлық түстерінен бар.</p>
+            <p>Өлшемдер; S,M,L,XL,2XL.</p>
+            <div class="price">Бағасы: 17 990 ₸</div>
+            <div class="car-overlay">
+                <a href="https://wa.me/7718286470?text=SUV көлігін сатып алғым келеді">Сатып алу</a>
+            </div>
+        </div>
+
+        <!-- Orta -->
+        <div class="car-card">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR394jVNpupXQ7R77eIGLCagfy_2jaoG8W5Ew&s">
+            <h3>Orta</h3>
+            <p>Түстер; Барлық түстерінен бар.</p>
+            <p>Өлшемдер; S,M,L,XL,2XL.</p>
+            <div class="price">Бағасы: 17 990 ₸</div>
+            <div class="car-overlay">
+                <a href="https://wa.me/7718286470?text=Кроссовер көлігіне тапсырыс бергім келеді">Сатып алу</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container card">
+    <h2>Jeideler</h2>
+
+    <div class="car-container">
+        
+
+        <!-- Demalys -->
+        <div class="car-card">
+            <img src="https://resources.cdn-kaspi.kz/img/m/p/p3c/pc1/19743712.png?format=gallery-medium">
+            <h3>Demalys</h3>
+            <p>Түстер; Барлық түстерінен бар.</p>
+            <p>Өлшемдер; S,M,L,XL,2XL.</p>
+            <div class="price">Бағасы: 14 990 ₸</div>
+            <div class="car-overlay">
+                <a href="https://wa.me/7718286470?text=Demalys jeidesyn satyp alam">Сатып алу</a>
+            </div>
+        </div>
+
+        <!-- Men qazaqpyn -->
+        <div class="car-card">
+            <img src="data:image/jpeg;base64,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">
+            <h3>Men qazaqpyn</h3>
+            <p>Түстер; Барлық түстерінен бар.</p>
+            <p>Өлшемдер; S,M,L,XL,2XL.</p>
+            <div class="price">Бағасы: 14 990 ₸</div>
+            <div class="car-overlay">
+                <a href="https://wa.me/7718286470?text=Men qazaqpyn jeidesyn satyp alam">Сатып алу</a>
+            </div>
+        </div>
+
+        <!-- Oiy -->
+        <div class="car-card">
+            <img src="data:image/jpeg;base64,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">
+            <h3>Oiy Ornek</h3>
+            <p>Түстер; Барлық түстерінен бар.</p>
+            <p>Өлшемдер; S,M,L,XL,2XL.</p>
+            <div class="price">Бағасы: 14 990 ₸</div>
+            <div class="car-overlay">
+                <a href="https://wa.me/7718286470?text=Oiy Ornek jeidesyn satyp alam">Сатып алу</a>
+            </div>
+        </div>
+
+        <!-- Orta -->
+        <div class="car-card">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSkJZi08Z2mPfcE0e2IieGmK5ZGZhEpgPyl4g&s">
+            <h3>Orta</h3>
+            <p>Түстер; Барлық түстерінен бар.</p>
+            <p>Өлшемдер; S,M,L,XL,2XL.</p>
+            <div class="price">Бағасы: 14 990 ₸</div>
+            <div class="car-overlay">
+                <a href="https://wa.me/7718286470?text=Orta jeidesyn satyp alam">Сатып алу</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<div class="container card">
+    <h2>Salbar</h2>
+
+    <div class="car-container">
+        
+
+        <!-- Demalys -->
+        <div class="car-card">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ4gO_wmQsx9HIxTnySgCzgFk8crHUNIMa7UA&s">
+            <h3>Salbar</h3>
+            <p>Түстер; Барлық түстерінен бар.</p>
+            <p>Өлшемдер; 30,31,32,33,34.</p>
+            <div class="price">Бағасы: 12 990 ₸</div>
+            <div class="car-overlay">
+                <a href="https://wa.me/7718286470?text= salbaryn satyp alam">Сатып алу</a>
+            </div>
+        </div>
+
+        <!-- Men qazaqpyn -->
+        <div class="car-card">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_Ch_oDrFYqAFrfWPOgUxZ9Gckm7kPBlH-yDGxNtKs6Q&s">
+            <h3>Salbar</h3>
+            <p>Түстер; Барлық түстерінен бар.</p>
+            <p>Өлшемдер; 30,31,32,33,34.</p>
+            <div class="price">Бағасы: 12 990 ₸</div>
+            <div class="car-overlay">
+                <a href="https://wa.me/7718286470?text=Седан көлігінің бағасы туралы ақпарат керек">Сатып алу</a>
+            </div>
+        </div>
+
+        <!-- Oiy -->
+        <div class="car-card">
+            <img src="https://basket-11.wbbasket.ru/vol1609/part160936/160936294/images/big/1.webp">
+            <h3>Salbar</h3>
+            <p>Түстер; Барлық түстерінен бар.</p>
+            <p>Өлшемдер; 30,31,32,33,34.</p>
+            <div class="price">Бағасы: 12 990 ₸</div>
+            <div class="car-overlay">
+                <a href="https://wa.me/7718286470?text=SUV көлігін сатып алғым келеді">Сатып алу</a>
+            </div>
+        </div>
+
+        <!-- Orta -->
+        <div class="car-card">
+            <img src="https://resources.cdn-kaspi.kz/img/m/p/p98/p99/16814170.jpg?format=gallery-large">
+            <h3>Salbar</h3>
+            <p>Түстер; Барлық түстерінен бар.</p>
+            <p>Өлшемдер; 30,31,32,33,34.</p>
+            <div class="price">Бағасы: 12 990 ₸</div>
+            <div class="car-overlay">
+                <a href="https://wa.me/7718286470?text=Кроссовер көлігіне тапсырыс бергім келеді">Сатып алу</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="payment">
+  <h3>Төлем</h3>
+  <img src="kaspi-qr.png" alt="Kaspi QR">
+  <p>Kaspi / Pay арқылы төлеу</p>
+</div>
+
+
+<footer>
+    <p>📞 Байланыс: +7 771 828 64 70 |  Алматы қаласы</p>
+</footer>
+<script>
+document.querySelectorAll('.car-card').forEach(card => {
+  card.addEventListener('mousemove', e => {
+    const rect = card.getBoundingClientRect();
+    const x = (e.clientX - rect.left - rect.width/2) / 20;
+    const y = (e.clientY - rect.top - rect.height/2) / 20;
+    card.style.transform = `rotateY(${x}deg) rotateX(${-y}deg) scale(1.05)`;
+  });
+
+  card.addEventListener('mouseleave', () => {
+    card.style.transform = 'translateY(-10px) scale(1)';
+  });
+});
+</script>
+
+<script>
+const modal = document.getElementById("productModal");
+
+document.querySelectorAll(".car-card").forEach(card => {
+  card.addEventListener("click", () => {
+    const name = card.querySelector("h3").innerText;
+    const img = card.querySelector("img").src;
+    const price = card.querySelector(".price").innerText;
+
+    document.getElementById("modalImg").src = img;
+    document.getElementById("modalTitle").innerText = name;
+    document.getElementById("modalDesc").innerText = "Өлшемдер: " + card.dataset.size;
+    document.getElementById("modalPrice").innerText = price;
+
+    document.getElementById("modalBuy").href =
+      `https://wa.me/7718286470?text=${encodeURIComponent(name + " сатып алғым келеді. " + price)}`;
+
+    modal.style.display = "flex";
+  });
+});
+
+document.querySelector(".close").onclick = () => modal.style.display = "none";
+window.onclick = e => { if (e.target === modal) modal.style.display = "none"; }
+
+// SEARCH + FILTER
+document.getElementById("searchInput").addEventListener("input", filter);
+document.getElementById("sizeFilter").addEventListener("change", filter);
+
+function filter() {
+  const search = searchInput.value.toLowerCase();
+  const size = sizeFilter.value;
+
+  document.querySelectorAll(".car-card").forEach(card => {
+    const name = card.dataset.name.toLowerCase();
+    const sizes = card.dataset.size;
+
+    card.style.display =
+      name.includes(search) && (size === "" || sizes.includes(size))
+      ? "block" : "none";
+  });
+}
+</script>
+<script>
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+updateCart();
+
+function addToCart(name, price) {
+  cart.push({ name, price });
+  localStorage.setItem("cart", JSON.stringify(cart));
+  updateCart();
+}
+
+function updateCart() {
+  document.getElementById("cartCount").innerText = cart.length;
+}
+</script>
+
+
+
+
+</body>
+</html>
